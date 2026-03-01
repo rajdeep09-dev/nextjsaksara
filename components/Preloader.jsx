@@ -1,11 +1,13 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { usePreloader } from './context/PreloaderContext';
 
 export default function Preloader() {
   const [isLoading, setIsLoading] = useState(true);
   const [isExiting, setIsExiting] = useState(false);
   const [counter, setCounter] = useState(0);
+  const { setIsPreloaderDone } = usePreloader();
 
   useEffect(() => {
     // Counter logic
@@ -24,6 +26,7 @@ export default function Preloader() {
       setIsExiting(true);
       setTimeout(() => {
         setIsLoading(false);
+        setIsPreloaderDone(true);
       }, 1000); // 1.0s after exit starts
     }, 2500);
 
@@ -31,7 +34,7 @@ export default function Preloader() {
       clearInterval(interval);
       clearTimeout(timer);
     };
-  }, []);
+  }, [setIsPreloaderDone]);
 
   if (!isLoading) return null;
 

@@ -1,242 +1,147 @@
-'use client';
-
-import React, { useEffect, useState } from 'react';
+'use client'
+import React, { useEffect, useRef, useState } from 'react'
+import Image from 'next/image'
+import { ArrowUpRight } from './icons'
+import { usePreloader } from './context/PreloaderContext'
 
 export default function HeroSection() {
-  const [isPreloaderExited, setIsPreloaderExited] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
+  const [mounted, setMounted] = useState(false)
+  const [scrollY, setScrollY] = useState(0)
+  const { isPreloaderDone } = usePreloader()
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsPreloaderExited(true);
-    }, 3500); // Trigger matching preloader exit timing (~3.5s after load)
-    return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const headlineText = "Crafting Digital Experiences That Inspire Growth";
-  const words = headlineText.split(' ');
-
-  // Wrap "Growth" in gradient word span
-  const getGradientWord = (word) => {
-    if (word === "Growth") {
-      return <span className="gradient-text">{word}</span>;
+    if (isPreloaderDone) {
+      setMounted(true)
     }
-    return word;
-  };
+    const handleScroll = () => {
+      setScrollY(window.scrollY)
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [isPreloaderDone])
 
   return (
-    <div
-      style={{
-        minHeight: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        textAlign: 'center',
-        paddingTop: '120px',
-        paddingBottom: '80px',
-        paddingLeft: '24px',
-        paddingRight: '24px',
-        position: 'relative',
-      }}
-    >
-      {/* Eyebrow badge */}
-      <div
-        style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '8px',
-          background: 'rgba(255,255,255,0.04)',
-          border: '1px solid rgba(255,255,255,0.08)',
-          borderRadius: '100px',
-          padding: '8px 20px',
-          fontFamily: 'var(--font-inter)',
-          fontSize: '0.8rem',
-          fontWeight: '500',
-          textTransform: 'uppercase',
-          letterSpacing: '0.15em',
-          color: '#5E17EB',
-          marginBottom: '32px',
-          opacity: 0,
-          transform: 'translateY(30px)',
-          animation: 'fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-        }}
-      >
-        <span
-          style={{
-            width: '6px',
-            height: '6px',
-            borderRadius: '50%',
-            background: '#5E17EB',
-            animation: 'pulseDot 2s ease-in-out infinite',
-          }}
+    <section id="hero" className="relative min-h-[100vh] min-h-[100svh] w-full flex overflow-hidden lg:grid lg:grid-cols-[1.1fr_1fr] pt-[160px] pb-[100px] px-6 md:px-12 lg:px-20">
+      
+      {/* Texture Layer */}
+      <div className="hero-grain" />
+
+      {/* Decorative Lines */}
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none z-0 overflow-hidden">
+        <div 
+          className="absolute top-[-10%] left-[-10%] w-[120%] h-px bg-[#5E17EB]/10 rotate-12 origin-left transition-transform duration-100 ease-out"
+          style={{ transform: `rotate(12deg) translateY(${scrollY * 0.2}px)` }}
         />
-        Akarsa Studio
+        <div 
+          className="absolute bottom-[-10%] right-[-10%] w-[120%] h-px bg-[#FF007F]/10 -rotate-12 origin-right transition-transform duration-100 ease-out"
+          style={{ transform: `rotate(-12deg) translateY(${-scrollY * 0.15}px)` }}
+        />
       </div>
-      <style dangerouslySetInnerHTML={{ __html: `
-        @keyframes fadeUp {
-          to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes pulseDot {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.3; }
-        }
-        @keyframes bounceDown {
-          0%, 100% { transform: translateY(0) translateX(-50%); }
-          50% { transform: translateY(8px) translateX(-50%); }
-        }
-      `}} />
 
-      {/* Headline */}
-      <h1
-        style={{
-          fontFamily: 'var(--font-syne)',
-          fontWeight: '800',
-          fontSize: 'clamp(3rem, 8vw, 6.5rem)',
-          lineHeight: '1.0',
-          letterSpacing: '-0.04em',
-          color: 'white',
-          maxWidth: '900px',
-          margin: '0 auto',
-        }}
-      >
-        {words.map((word, index) => (
-          <span
-            key={index}
-            style={{
-              display: 'inline-block',
-              marginRight: index < words.length - 1 ? '0.3em' : '0',
-              opacity: isPreloaderExited ? 1 : 0,
-              transform: isPreloaderExited ? 'translateY(0) blur(0)' : 'translateY(100%) blur(4px)',
-              transition: `opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.7s cubic-bezier(0.16, 1, 0.3, 1)`,
-              transitionDelay: `${index * 0.08}s`,
-              willChange: 'transform, opacity, filter',
-            }}
-          >
-            {getGradientWord(word)}
+      {/* Left Content (Text) */}
+      <div className="relative z-10 flex flex-col items-start justify-center max-w-[700px]">
+        
+        {/* Eyebrow */}
+        <div className={`flex items-center mb-8 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+          <div className={`h-px bg-[#5E17EB] mr-3 inline-block align-middle transition-all duration-800 delay-300 ${mounted ? 'w10' : 'w-0'}`} style={{ width: mounted ? '40px' : '0px' }} />
+          <div className="px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-[0.8rem] font-inter font-medium text-white/80 tracking-wide uppercase">
+            Redefining Digital Experiences
+          </div>
+        </div>
+
+        {/* Headline */}
+        <h1 className="text-left font-syne font-extrabold text-white text-[clamp(4rem,10vw,8rem)] leading-[0.95] tracking-[-0.05em] flex flex-col gap-0 relative z-20">
+          <span className={`block transition-all duration-800 delay-[400ms] ${mounted ? 'opacity-100 translate-x-0 blur-none' : 'opacity-0 -translate-x-10 blur-sm'}`}>
+            We Create
           </span>
-        ))}
-      </h1>
+          <span className={`block text-transparent bg-clip-text bg-gradient-to-r from-[#5E17EB] to-[#FF007F] transition-all duration-800 delay-[500ms] ${mounted ? 'opacity-100 translate-x-0 blur-none' : 'opacity-0 -translate-x-10 blur-sm'}`}>
+            Unforgettable
+          </span>
+          <span className={`block text-stroke-1 transition-all duration-800 delay-[600ms] ${mounted ? 'opacity-100 translate-x-0 blur-none' : 'opacity-0 -translate-x-10 blur-sm'}`}>
+            Digital Brands
+          </span>
+        </h1>
 
-      {/* Subtitle */}
-      <p
-        style={{
-          fontFamily: 'var(--font-inter)',
-          fontWeight: '300',
-          fontSize: 'clamp(1rem, 2.5vw, 1.2rem)',
-          color: 'rgba(255,255,255,0.55)',
-          maxWidth: '580px',
-          margin: '24px auto 0',
-          lineHeight: '1.8',
-          opacity: 0,
-          transform: 'translateY(30px)',
-          animation: 'fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.0s forwards',
-        }}
-      >
-        At Akarsa, we blend creativity, technology, and strategy to design powerful digital solutions that inspire growth. From graphic design and branding to web development, digital marketing, and AI-powered collaborations, we help brands evolve, connect, and thrive in today&apos;s fast-changing world.
-      </p>
+        {/* Subtitle */}
+        <p className={`mt-8 text-left max-w-[480px] font-inter font-light text-[clamp(1rem,2vw,1.15rem)] text-white/50 leading-[1.8] transition-all duration-600 delay-[800ms] ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+          A creative and digital solutions agency that believes in redefining how brands communicate. We blend bold design with strategic thinking.
+        </p>
 
-      {/* Buttons */}
-      <div
-        style={{
-          display: 'flex',
-          gap: '16px',
-          justifyContent: 'center',
-          marginTop: '40px',
-          flexWrap: 'wrap',
-          opacity: 0,
-          transform: 'translateY(30px)',
-          animation: 'fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 1.2s forwards',
-        }}
-        className="flex-col md:flex-row w-full md:w-auto"
-      >
-        <a href="/services" style={{ width: '100%' }}>
-          <button
-            style={{
-              background: 'linear-gradient(135deg, #5E17EB, #7B2FFF)',
-              color: 'white',
-              padding: '16px 40px',
-              borderRadius: '100px',
-              fontFamily: 'var(--font-inter)',
-              fontWeight: '500',
-              fontSize: '1rem',
-              border: 'none',
-              cursor: 'pointer',
-              boxShadow: '0 4px 25px rgba(94,23,235,0.35)',
-              transition: 'all 0.3s cubic-bezier(0.4,0,0.2,1)',
-              width: '100%',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-3px)';
-              e.currentTarget.style.boxShadow = '0 8px 35px rgba(94,23,235,0.5)';
-              e.currentTarget.style.filter = 'brightness(1.1)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 4px 25px rgba(94,23,235,0.35)';
-              e.currentTarget.style.filter = 'brightness(1)';
-            }}
-            onMouseDown={(e) => {
-              e.currentTarget.style.transform = 'translateY(0) scale(0.97)';
-            }}
-            onMouseUp={(e) => {
-              e.currentTarget.style.transform = 'translateY(-3px)';
-            }}
-          >
-            Explore Services
+        {/* Buttons */}
+        <div className={`flex flex-wrap items-start justify-start gap-4 mt-12 transition-all duration-500 delay-[1000ms] ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+          <button className="group relative overflow-hidden bg-gradient-to-br from-[#5E17EB] to-[#7B2FFF] text-white px-8 py-4 rounded-full font-inter font-medium text-[0.95rem] border-none cursor-pointer transition-all duration-300 ease-out shadow-[0_4px_20px_rgba(94,23,235,0.4)] hover:shadow-[0_6px_30px_rgba(94,23,235,0.6)] hover:-translate-y-1 active:translate-y-0 active:scale-95 flex items-center gap-2">
+            <span className="relative z-10">Start a Project</span>
+            <ArrowUpRight className="w-5 h-5 relative z-10 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
           </button>
-        </a>
-        <a href="/work" style={{ width: '100%' }}>
-          <button
-            style={{
-              background: 'transparent',
-              border: '1px solid rgba(255,255,255,0.15)',
-              color: 'white',
-              padding: '16px 40px',
-              borderRadius: '100px',
-              fontFamily: 'var(--font-inter)',
-              fontWeight: '400',
-              fontSize: '1rem',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease',
-              width: '100%',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
-              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'transparent';
-              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)';
-            }}
-          >
-            View Portfolios
+          
+          <button className="group relative overflow-hidden bg-transparent border border-white/20 text-white px-8 py-4 rounded-full font-inter font-medium text-[0.95rem] cursor-pointer transition-all duration-300 hover:bg-white/5 hover:border-white/40 flex items-center gap-2">
+            Our Work
           </button>
-        </a>
+        </div>
+
+        {/* Scroll Indicator */}
+        <div className={`mt-12 flex flex-col items-center opacity-50 transition-all duration-500 delay-[1200ms] ${mounted ? 'opacity-50 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+          <span className="text-[0.7rem] font-inter uppercase tracking-widest mb-2">Scroll to explore</span>
+          <div className="w-[1px] h-8 bg-gradient-to-b from-white to-transparent animate-pulse" />
+        </div>
+
+        {/* Stats */}
+        <div className={`flex flex-row gap-12 mt-16 transition-all duration-500 delay-[1400ms] ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+          <div className="flex flex-col border-r border-white/10 pr-12">
+            <span className="font-syne font-extrabold text-[2rem] text-white">40+</span>
+            <span className="font-inter text-[0.75rem] font-normal text-white/50 mt-1 uppercase tracking-wider">Projects Delivered</span>
+          </div>
+          <div className="flex flex-col border-r border-white/10 pr-12">
+            <span className="font-syne font-extrabold text-[2rem] text-white">99%</span>
+            <span className="font-inter text-[0.75rem] font-normal text-white/50 mt-1 uppercase tracking-wider">Client Retention</span>
+          </div>
+          <div className="flex flex-col">
+            <span className="font-syne font-extrabold text-[2rem] text-white">5+</span>
+            <span className="font-inter text-[0.75rem] font-normal text-white/50 mt-1 uppercase tracking-wider">Years Experience</span>
+          </div>
+        </div>
+
       </div>
 
-      {/* Scroll indicator */}
-      <div
-        style={{
-          position: 'absolute',
-          bottom: '32px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          animation: 'bounceDown 2s ease-in-out infinite',
-          opacity: scrollY > 100 ? 0 : 1,
-          transition: 'opacity 0.3s ease',
-        }}
-      >
-        <div style={{ height: '20px', width: '1.5px', background: 'rgba(255,255,255,0.2)' }} />
+      {/* Right Content (Visual) */}
+      <div className="hidden lg:flex relative h-full w-full justify-end items-center right-0">
+        <div 
+          className={`absolute top-[10%] bottom-[10%] right-[-20px] w-full max-w-[90%] rounded-l-[40px] overflow-hidden border border-white/10 transition-all duration-[1.2s] ease-[cubic-bezier(0.76,0,0.24,1)] delay-[800ms] ${mounted ? 'clip-path-full' : 'clip-path-inset-right'}`}
+          style={{ clipPath: mounted ? 'inset(0 0 0 0)' : 'inset(0 100% 0 0)' }}
+        >
+          {/* Parallax Image Wrapper */}
+          <div 
+            className="w-full h-[120%] relative -top-[10%] transition-transform duration-100 ease-out"
+            style={{ transform: `translateY(${scrollY * 0.1}px)` }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-[#05000A] via-transparent to-transparent z-10" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#05000A] z-10" />
+            
+            <Image
+              src="/akarsa.png"
+              alt="Akarsa Hero Visual"
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover opacity-80 mix-blend-screen grayscale-[20%]"
+            />
+          </div>
+        </div>
       </div>
-    </div>
-  );
+
+      {/* Mobile Background Fallback */}
+      <div className="lg:hidden absolute inset-0 z-0 opacity-20 pointer-events-none">
+        <Image
+          src="/akarsa.png"
+          alt="Akarsa Hero Visual"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover mix-blend-screen"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#05000A] via-[#05000A]/80 to-transparent" />
+      </div>
+
+    </section>
+  )
 }
