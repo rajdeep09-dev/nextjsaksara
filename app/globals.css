@@ -2,16 +2,73 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Dark Theme (Default) */
+[data-theme='dark'],
 :root {
+  --bg-base: #05000A;
+  --bg-elevated: #0A0512;
+  --bg-card: #0F0A18;
+  --text-primary: #FFFFFF;
+  --text-secondary: rgba(255,255,255,0.55);
+  --text-muted: rgba(255,255,255,0.3);
+  --accent: #5E17EB;
+  --accent-secondary: #FF007F;
+  --accent-warm: #FF6A3D;
+  --glass-bg: rgba(255,255,255,0.03);
+  --glass-bg-hover: rgba(255,255,255,0.06);
+  --glass-border: rgba(255,255,255,0.06);
+  --glass-border-hover: rgba(255,255,255,0.12);
+  --glass-strong-bg: rgba(255,255,255,0.08);
+  --glass-strong-border: rgba(255,255,255,0.12);
+  --nav-bg: rgba(5,0,10,0.6);
+  --nav-bg-scroll: rgba(5,0,10,0.8);
+  --shadow-color: rgba(0,0,0,0.3);
+  --glow-color: rgba(94,23,235,0.15);
+  --gradient-blob-1: #5E17EB;
+  --gradient-blob-2: #FF007F;
+  --gradient-blob-3: #FF6A3D;
+  --selection-bg: rgba(94,23,235,0.4);
+  --scrollbar-thumb: rgba(94,23,235,0.4);
   --background: #05000A;
   --foreground: #ffffff;
 }
 
+/* Light Theme */
+[data-theme='light'] {
+  --bg-base: #F8F6FF;
+  --bg-elevated: #FFFFFF;
+  --bg-card: #FFFFFF;
+  --text-primary: #0A0118;
+  --text-secondary: rgba(10,1,24,0.6);
+  --text-muted: rgba(10,1,24,0.35);
+  --accent: #5E17EB;
+  --accent-secondary: #D6006E;
+  --accent-warm: #E85A2D;
+  --glass-bg: rgba(255,255,255,0.6);
+  --glass-bg-hover: rgba(255,255,255,0.8);
+  --glass-border: rgba(0,0,0,0.06);
+  --glass-border-hover: rgba(0,0,0,0.1);
+  --glass-strong-bg: rgba(255,255,255,0.75);
+  --glass-strong-border: rgba(0,0,0,0.08);
+  --nav-bg: rgba(248,246,255,0.7);
+  --nav-bg-scroll: rgba(248,246,255,0.9);
+  --shadow-color: rgba(94,23,235,0.08);
+  --glow-color: rgba(94,23,235,0.1);
+  --gradient-blob-1: rgba(94,23,235,0.15);
+  --gradient-blob-2: rgba(255,0,127,0.1);
+  --gradient-blob-3: rgba(255,106,61,0.08);
+  --selection-bg: rgba(94,23,235,0.2);
+  --scrollbar-thumb: rgba(94,23,235,0.3);
+  --background: #F8F6FF;
+  --foreground: #0A0118;
+}
+
 body {
-  background-color: var(--background);
-  color: var(--foreground);
+  background-color: var(--bg-base);
+  color: var(--text-primary);
   font-family: var(--font-inter);
   overflow-x: hidden;
+  transition: background-color 0.6s ease, color 0.6s ease;
 }
 
 @layer utilities {
