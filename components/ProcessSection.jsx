@@ -1,101 +1,73 @@
-'use client'
-import React, { useEffect, useRef, useState } from 'react'
+'use client';
 
-const processSteps = [
-  {
-    num: '01',
-    title: 'Discovery & Strategy',
-    desc: 'We start by understanding your goals, audience, and market. This research forms the foundation of our strategy.'
-  },
-  {
-    num: '02',
-    title: 'Conceptualization',
-    desc: 'Our team brainstorms and develops creative concepts that align with the strategic direction and brand values.'
-  },
-  {
-    num: '03',
-    title: 'Design & Development',
-    desc: 'Bringing the concepts to life through meticulous design and robust technical implementation.'
-  },
-  {
-    num: '04',
-    title: 'Launch & Optimize',
-    desc: 'We deploy the solution, monitor performance, and continuously optimize for maximum impact and growth.'
-  }
-]
+import React, { useEffect, useRef, useState } from 'react';
 
 export default function ProcessSection() {
-  const containerRef = useRef(null)
-  const [inView, setInView] = useState(false)
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true)
-          observer.disconnect()
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setIsVisible(true);
         }
       },
-      { threshold: 0.2 }
-    )
-    if (containerRef.current) observer.observe(containerRef.current)
-    return () => observer.disconnect()
-  }, [])
+      { threshold: 0.1 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  const steps = [
+    { number: '01', title: 'Discovery', desc: 'Deep dive into your brand, market, and audience to uncover core opportunities.' },
+    { number: '02', title: 'Strategy', desc: 'Crafting a brutalist, conversion-focused blueprint that breaks category norms.' },
+    { number: '03', title: 'Design', desc: 'Creating bold, asymmetric layouts and massive typography that commands respect.' },
+    { number: '04', title: 'Launch', desc: 'Deploying high-performance experiences with butter-smooth animations.' }
+  ];
 
   return (
-    <section id="process" ref={containerRef} className="relative w-full py-[clamp(120px,15vw,200px)] scroll-mt-[100px]">
+    <div className="w-full max-w-[1200px] mx-auto px-[clamp(24px,5vw,80px)] py-[clamp(80px,12vw,160px)]" ref={ref}>
       
-      {/* Section Header */}
-      <div className={`max-w-[1200px] mx-auto px-6 md:px-12 lg:px-20 mb-20 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-        <div className="flex items-center mb-4">
-          <div className="w-[40px] h-px bg-[#5E17EB] mr-3 inline-block" />
-          <span className="font-inter font-medium text-[0.8rem] text-[#5E17EB] uppercase tracking-[0.15em]">How We Work</span>
+      <div className="mb-16">
+        <div className="flex items-center gap-3">
+          <div className="w-[40px] h-[1px] bg-[#5E17EB]" />
+          <span className="text-[#5E17EB] uppercase font-inter text-[0.8rem] font-medium tracking-[0.15em]">HOW WE WORK</span>
         </div>
-        <h2 className="font-syne font-bold text-[clamp(2.5rem,7vw,5rem)] text-white tracking-[-0.02em] leading-none">
-          Our Process
-        </h2>
+        <h2 className="heading-section mt-4">Our Process</h2>
       </div>
 
-      {/* Process Steps */}
-      <div className="relative max-w-[1200px] mx-auto px-6 md:px-12 lg:px-20">
-        
+      <div className="relative mt-24">
         {/* Connecting Line (Desktop) */}
-        <div className="hidden lg:block absolute top-[28px] left-[120px] right-[120px] h-px bg-gradient-to-r from-transparent via-[#5E17EB]/30 to-[#FF007F]/30 z-0" />
+        <div className="hidden md:block absolute top-[28px] left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#5E17EB]/30 to-transparent -z-10" />
         
         {/* Connecting Line (Mobile) */}
-        <div className="lg:hidden absolute top-[28px] bottom-[28px] left-[52px] w-px bg-gradient-to-b from-transparent via-[#5E17EB]/30 to-[#FF007F]/30 z-0" />
+        <div className="md:hidden absolute top-0 left-[28px] w-[1px] h-full bg-gradient-to-b from-transparent via-[#5E17EB]/30 to-transparent -z-10" />
 
-        <div className="flex flex-col lg:flex-row items-start justify-between gap-12 lg:gap-8 relative z-10">
-          {processSteps.map((step, index) => (
+        <div className="flex flex-col md:flex-row gap-12 md:gap-8 justify-between relative z-10">
+          {steps.map((step, i) => (
             <div 
-              key={index}
-              className="group relative flex flex-row lg:flex-col items-start gap-6 lg:gap-0 lg:w-[250px] opacity-0"
-              style={{ 
-                animation: inView ? `fadeUp 0.6s ease forwards ${0.2 + index * 0.2}s` : 'none',
+              key={i} 
+              className="flex flex-row md:flex-col items-start gap-6 group flex-1"
+              style={{
+                opacity: isVisible ? 1 : 0,
+                transform: isVisible ? 'translateY(0)' : 'translateY(40px)',
+                transition: `opacity 0.6s ease ${i * 0.2}s, transform 0.6s ease ${i * 0.2}s`
               }}
             >
-              
-              {/* Step Number */}
-              <div className="w-[56px] h-[56px] min-w-[56px] rounded-full bg-[#5E17EB]/10 border border-[#5E17EB]/30 flex items-center justify-center font-syne font-extrabold text-[1.2rem] text-[#5E17EB] transition-all duration-300 group-hover:bg-[#5E17EB]/20 group-hover:shadow-[0_0_20px_rgba(94,23,235,0.4)] lg:mb-8 z-10">
-                {step.num}
+              <div className="inline-flex items-center justify-center w-[56px] h-[56px] rounded-full bg-[#5E17EB]/10 border border-[#5E17EB]/30 font-syne font-extrabold text-[1.2rem] text-[#5E17EB] group-hover:bg-[#5E17EB]/20 group-hover:shadow-[0_0_20px_rgba(94,23,235,0.4)] transition-all duration-300 shrink-0">
+                {step.number}
               </div>
-
-              {/* Text Content */}
-              <div className="flex flex-col mt-2 lg:mt-0">
-                <h3 className="font-syne font-bold text-[1.3rem] text-white leading-[1.2] mb-3">
-                  {step.title}
-                </h3>
-                <p className="font-inter font-light text-[0.9rem] text-white/50 leading-[1.6] max-w-[250px]">
+              <div>
+                <h3 className="font-syne text-[1.3rem] font-bold text-white md:mt-6">{step.title}</h3>
+                <p className="font-inter text-[0.9rem] font-light text-white/50 mt-3 max-w-[250px] leading-relaxed">
                   {step.desc}
                 </p>
               </div>
-
             </div>
           ))}
         </div>
-
       </div>
-
-    </section>
-  )
+    </div>
+  );
 }

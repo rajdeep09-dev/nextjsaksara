@@ -1,76 +1,61 @@
-'use client'
-import React, { useEffect, useRef, useState } from 'react'
+'use client';
+
+import React, { useEffect, useState } from 'react';
 
 export default function CursorFollower() {
-  const dotRef = useRef(null)
-  const [isHovering, setIsHovering] = useState(false)
-  const [isVisible, setIsVisible] = useState(false)
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isMobile, setIsMobile] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
-    // Disable on touch devices
-    if ('ontouchstart' in window || navigator.maxTouchPoints > 0 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      return
-    }
-    
-    setIsVisible(true)
-
-    const mouse = { x: 0, y: 0 }
-    const pos = { x: 0, y: 0 }
-    let reqId
-
-    const updateMouse = (e) => {
-      mouse.x = e.clientX
-      mouse.y = e.clientY
+    // Check if device is touch based
+    if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+      setIsMobile(true);
+      return;
     }
 
-    const updatePosition = () => {
-      pos.x += (mouse.x - pos.x) * 0.15
-      pos.y += (mouse.y - pos.y) * 0.15
-      
-      if (dotRef.current) {
-        dotRef.current.style.transform = `translate(${pos.x}px, ${pos.y}px)`
-      }
-      
-      reqId = requestAnimationFrame(updatePosition)
-    }
-    
+    const onMouseMove = (e) => {
+      setPosition({ x: e.clientX, y: e.clientY });
+    };
+
+    window.addEventListener('mousemove', onMouseMove, { passive: true });
+
+    // Global listener for interactive elements
     const handleMouseOver = (e) => {
-      if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON' || e.target.closest('a') || e.target.closest('button')) {
-        setIsHovering(true)
+      if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON' || e.target.closest('a') || e.target.closest('button') || e.target.closest('.interactive')) {
+        setIsHovering(true);
       } else {
-        setIsHovering(false)
+        setIsHovering(false);
       }
-    }
+    };
 
-    window.addEventListener('mousemove', updateMouse, { passive: true })
-    document.addEventListener('mouseover', handleMouseOver, { passive: true })
-    
-    // Set initial position
-    window.addEventListener('mousemove', (e) => {
-        pos.x = e.clientX
-        pos.y = e.clientY
-    }, { once: true, passive: true })
-
-    reqId = requestAnimationFrame(updatePosition)
+    window.addEventListener('mouseover', handleMouseOver);
 
     return () => {
-      window.removeEventListener('mousemove', updateMouse)
-      document.removeEventListener('mouseover', handleMouseOver)
-      cancelAnimationFrame(reqId)
-    }
-  }, [])
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('mouseover', handleMouseOver);
+    };
+  }, []);
 
-  if (!isVisible) return null
+  if (isMobile) return null;
 
   return (
     <div
-      ref={dotRef}
-      className={`fixed top-0 left-0 pointer-events-none z-[9998] mix-blend-difference rounded-full transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ease-out flex items-center justify-center ${
-        isHovering 
-          ? 'w-[40px] h-[40px] bg-[rgba(94,23,235,0.2)] border border-[rgba(255,255,255,0.2)] mix-blend-normal' 
-          : 'w-[8px] h-[8px] bg-white'
-      }`}
-      style={{ willChange: 'transform' }}
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: isHovering ? '40px' : '8px',
+        height: isHovering ? '40px' : '8px',
+        backgroundColor: isHovering ? 'rgba(94, 23, 235, 0.2)' : 'white',
+        border: isHovering ? '1px solid rgba(255, 255, 255, 0.2)' : 'none',
+        borderRadius: '50%',
+        pointerEvents: 'none',
+        transform: `translate(${position.x - (isHovering ? 20 : 4)}px, ${position.y - (isHovering ? 20 : 4)}px)`,
+        transition: 'width 0.3s, height 0.3s, background-color 0.3s, border 0.3s, transform 0.15s linear',
+        zIndex: 9998,
+        mixBlendMode: 'difference'
+      }}
     />
-  )
+  );
 }
