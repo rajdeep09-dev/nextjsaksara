@@ -42,7 +42,7 @@ export default function ServicesSection() {
   ];
 
   return (
-    <div className="relative w-full pt-[120px] pb-[160px] overflow-hidden bg-[#05000A]">
+    <div className="glass-whisper rounded-[32px] mx-[clamp(16px,3vw,40px)] mt-[clamp(40px,8vw,80px)] pt-[clamp(48px,8vw,80px)] pb-[clamp(48px,8vw,80px)] relative overflow-hidden">
       
       {/* Background Watermark */}
       <div className="absolute top-[-20px] right-[-5%] font-syne text-[clamp(6rem,20vw,15rem)] font-extrabold text-transparent z-0 pointer-events-none whitespace-nowrap overflow-hidden select-none"
@@ -87,10 +87,19 @@ export default function ServicesSection() {
                   style={{ transform: isExpanded ? 'scaleX(1)' : 'scaleX(0)' }}
                 />
 
-                {/* Background overlay on active */}
+                {/* Background overlay on active — glass effect */}
                 <div 
-                  className="absolute inset-0 bg-white/[0.02] transition-opacity duration-400 pointer-events-none"
-                  style={{ opacity: isExpanded ? 1 : 0 }}
+                  className="absolute inset-0 transition-all duration-400 pointer-events-none rounded-[20px] -m-[16px] md:-m-[24px]"
+                  style={{ 
+                    opacity: isExpanded ? 1 : 0,
+                    background: isExpanded 
+                      ? 'linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%)'
+                      : 'transparent',
+                    backdropFilter: isExpanded ? 'blur(16px)' : 'blur(0px)',
+                    WebkitBackdropFilter: isExpanded ? 'blur(16px)' : 'blur(0px)',
+                    border: isExpanded ? '1px solid rgba(255,255,255,0.06)' : 'none',
+                    boxShadow: isExpanded ? '0 8px 32px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.04)' : 'none'
+                  }}
                 />
 
                 {/* Collapsed State (Always visible) */}
@@ -137,7 +146,7 @@ export default function ServicesSection() {
                       </p>
                       <div className="flex flex-wrap gap-2 mt-6">
                         {service.tags.map((tag, idx) => (
-                          <span key={idx} className="bg-[#5E17EB]/10 border border-[#5E17EB]/20 rounded-full px-[16px] py-[6px] font-inter text-[0.75rem] text-[#5E17EB]">
+                          <span key={idx} className="glass-accent px-[16px] py-[6px] rounded-full border border-[#5E17EB]/20 font-inter text-[0.75rem] text-[#5E17EB] backdrop-blur-sm transition-all duration-300 hover:glass-medium">
                             {tag}
                           </span>
                         ))}
@@ -146,19 +155,23 @@ export default function ServicesSection() {
 
                     {/* Right: Image */}
                     <div className="order-1 md:order-2">
-                      <div className="relative w-full aspect-[16/10] rounded-[16px] border border-white/[0.06] overflow-hidden"
+                      <div className="glass-medium p-[6px] rounded-[16px] overflow-hidden relative"
                            style={{
                              clipPath: isExpanded ? 'inset(0 0 0 0)' : 'inset(0 100% 0 0)',
-                             transition: 'clip-path 0.6s cubic-bezier(0.76, 0, 0.24, 1) 0.2s'
+                             transition: 'clip-path 0.6s cubic-bezier(0.76, 0, 0.24, 1) 0.2s',
+                             width: '100%',
+                             aspectRatio: '16/10'
                            }}>
-                        <Image 
-                          src={service.img} 
-                          alt={service.title}
-                          fill
-                          className="object-cover"
-                          sizes="(max-width: 768px) 100vw, 50vw"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#05000A]/80 to-transparent" />
+                        <div className="relative w-full h-full rounded-[12px] overflow-hidden">
+                          <Image 
+                            src={service.img} 
+                            alt={service.title}
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 768px) 100vw, 50vw"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-[#05000A]/80 to-transparent" />
+                        </div>
                       </div>
                     </div>
 

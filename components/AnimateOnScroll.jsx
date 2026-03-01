@@ -55,6 +55,15 @@ export default function AnimateOnScroll({
       case 'fade-right': return { opacity: 0, transform: `translateX(${translateVal})` };
       case 'scale-in': return { opacity: 0, transform: 'scale(0.9)' };
       case 'clip-up': return { clipPath: 'inset(100% 0 0 0)' };
+      case 'glass-appear': return { 
+        opacity: 0, 
+        backdropFilter: 'blur(0px)',
+        WebkitBackdropFilter: 'blur(0px)',
+        background: 'transparent',
+        border: '1px solid transparent',
+        transform: 'translateY(20px) scale(0.97)',
+        boxShadow: 'none'
+      };
       default: return { opacity: 0, transform: `translateY(${translateVal})` };
     }
   };
@@ -66,6 +75,15 @@ export default function AnimateOnScroll({
       case 'fade-right': return { opacity: 1, transform: 'translateX(0)' };
       case 'scale-in': return { opacity: 1, transform: 'scale(1)' };
       case 'clip-up': return { clipPath: 'inset(0 0 0 0)' };
+      case 'glass-appear': return { 
+        opacity: 1, 
+        backdropFilter: 'blur(24px)',
+        WebkitBackdropFilter: 'blur(24px)',
+        background: 'linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%)',
+        border: '1px solid rgba(255,255,255,0.08)',
+        transform: 'translateY(0) scale(1)',
+        boxShadow: '0 8px 32px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.06)'
+      };
       default: return { opacity: 1, transform: 'translateY(0)' };
     }
   };

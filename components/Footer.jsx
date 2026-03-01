@@ -21,10 +21,10 @@ export default function Footer() {
       </div>
 
       {/* Columns Area */}
-      <div className="max-w-[1400px] mx-auto px-[clamp(24px,5vw,80px)] grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1.5fr] gap-12 md:gap-12">
+      <div className="max-w-[1400px] mx-auto px-[clamp(24px,5vw,80px)] grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1.5fr] gap-6 md:gap-6">
         
         {/* Brand Col */}
-        <div className="flex flex-col">
+        <div className="glass-whisper rounded-[20px] p-6 flex flex-col">
           <Link href="/" className="font-syne font-extrabold text-[1.5rem] text-white tracking-[0.05em]">
             AKARSA
           </Link>
@@ -37,7 +37,7 @@ export default function Footer() {
               <a 
                 key={social} 
                 href="#" 
-                className="w-[40px] h-[40px] rounded-full bg-white/[0.04] border border-white/[0.08] flex items-center justify-center font-inter text-[0.85rem] text-white hover:bg-[#5E17EB] hover:border-[#5E17EB] hover:-translate-y-[2px] hover:scale-110 transition-all duration-300"
+                className="glass-medium w-[44px] h-[44px] rounded-[12px] flex items-center justify-center font-inter text-[0.85rem] text-white hover:glass-accent hover:-translate-y-[2px] hover:scale-105 transition-all duration-300"
               >
                 {social}
               </a>
@@ -46,7 +46,7 @@ export default function Footer() {
         </div>
 
         {/* Navigation Col */}
-        <div className="flex flex-col">
+        <div className="glass-whisper rounded-[20px] p-6 flex flex-col">
           <h4 className="font-syne text-[0.9rem] font-bold text-white uppercase tracking-[0.1em] mb-7">Navigation</h4>
           <nav className="flex flex-col gap-3">
             {['Home', 'About', 'Services', 'Work', 'Contact'].map((link) => (
@@ -62,7 +62,7 @@ export default function Footer() {
         </div>
 
         {/* Services Col */}
-        <div className="flex flex-col">
+        <div className="glass-whisper rounded-[20px] p-6 flex flex-col">
           <h4 className="font-syne text-[0.9rem] font-bold text-white uppercase tracking-[0.1em] mb-7">Services</h4>
           <nav className="flex flex-col gap-3">
             {['Strategy', 'Branding', 'Web Design', 'Development'].map((link) => (
@@ -78,7 +78,7 @@ export default function Footer() {
         </div>
 
         {/* Contact Col */}
-        <div className="flex flex-col">
+        <div className="glass-whisper rounded-[20px] p-6 flex flex-col">
           <h4 className="font-syne text-[0.9rem] font-bold text-white uppercase tracking-[0.1em] mb-7">Contact</h4>
           
           <div className="flex flex-col gap-4">
@@ -111,7 +111,7 @@ export default function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="max-w-[1400px] mx-auto mt-[80px] px-[clamp(24px,5vw,80px)] py-[24px] pb-[32px] border-t border-white/[0.04] flex flex-col md:flex-row justify-between items-center gap-2">
+      <div className="glass-whisper rounded-[16px] max-w-[1400px] mx-auto mt-[80px] mx-[clamp(24px,5vw,80px)] px-[clamp(24px,5vw,80px)] py-[24px] flex flex-col md:flex-row justify-between items-center gap-2">
         <div className="font-inter text-[0.8rem] font-light text-white/25">
           © {currentYear} Akarsa Agency. All rights reserved.
         </div>

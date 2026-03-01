@@ -6,6 +6,7 @@ import Preloader from "@/components/Preloader";
 import CustomCursor from "@/components/CustomCursor";
 import CursorFollower from "@/components/CursorFollower";
 import MagneticButtonManager from "@/components/MagneticButtonManager";
+import ScrollProgress from "@/components/ScrollProgress";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const syne = Syne({ subsets: ["latin"], variable: "--font-syne" });
@@ -30,6 +31,7 @@ export default function RootLayout({ children }) {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className={`${inter.variable} ${syne.variable} bg-[#05000A] text-white min-h-screen relative font-inter overflow-x-hidden selection:bg-[#5E17EB] selection:text-white`}>
+        <ScrollProgress />
         <Preloader />
         <CustomCursor />
         <CursorFollower />

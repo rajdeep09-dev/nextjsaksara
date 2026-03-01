@@ -38,8 +38,12 @@ export default function HeroSection() {
               width: 0,
               animation: 'accent-line-appear 0.6s cubic-bezier(0.76, 0, 0.24, 1) 0.4s both'
             }} />
-            <div className="px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md">
-              <span className="text-[0.75rem] font-inter uppercase tracking-widest text-white/80">Premium Digital Agency</span>
+            <div className="glass-medium px-4 py-2 rounded-full flex items-center gap-2">
+              <span className="inline-block w-[6px] h-[6px] rounded-full bg-[#5E17EB]" style={{
+                boxShadow: '0 0 6px #5E17EB, 0 0 12px rgba(94,23,235,0.4)',
+                animation: 'pulse 2s ease-in-out infinite'
+              }} />
+              <span className="text-[0.75rem] font-inter uppercase tracking-widest text-white/90">Premium Digital Agency</span>
             </div>
           </div>
 
@@ -87,12 +91,12 @@ export default function HeroSection() {
             We build $100K digital experiences. Editorial typography, brutalist layouts, and magnetic interactions that make people stop scrolling.
           </p>
 
-          <div className="mt-12 flex items-center justify-start gap-6 animate-[fade-up_0.5s_ease_1.4s_both]">
-            <a href="#contact" className="magnetic-button px-8 py-4 rounded-full bg-gradient-to-r from-[#5E17EB] to-[#7B2FFF] text-white font-inter font-semibold text-[1rem] shadow-[0_4px_20px_rgba(94,23,235,0.4)] hover:shadow-[0_8px_30px_rgba(94,23,235,0.6)] hover:-translate-y-1 transition-all duration-300">
+          <div className="mt-12 flex items-center justify-start gap-6 animate-[fade-up_0.5s_ease_1.4s_both] flex-wrap">
+            <a href="#contact" className="magnetic-button btn-primary-glass">
               Start a Project
             </a>
-            <a href="#work" className="text-white font-inter font-medium text-[0.95rem] flex items-center gap-2 hover:gap-4 transition-all duration-300 group">
-              View Our Work <span className="text-[#5E17EB] group-hover:translate-x-1 transition-transform">→</span>
+            <a href="#work" className="btn-secondary-glass">
+              View Our Work
             </a>
           </div>
 
