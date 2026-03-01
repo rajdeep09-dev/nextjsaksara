@@ -3,7 +3,6 @@ import "./globals.css";
 import ThemeProvider from "@/components/ThemeProvider";
 import GlassNavbar from "@/components/GlassNavbar";
 import Footer from "@/components/Footer";
-import Preloader from "@/components/Preloader";
 import CustomCursor from "@/components/CustomCursor";
 import CursorFollower from "@/components/CursorFollower";
 import MagneticButtonManager from "@/components/MagneticButtonManager";
@@ -34,7 +33,6 @@ export default function RootLayout({ children }) {
       <body className={`${inter.variable} ${syne.variable} bg-[var(--bg-base)] text-[var(--text-primary)] min-h-screen relative font-inter overflow-x-hidden selection:bg-[var(--selection-bg)] selection:text-[var(--text-primary)] transition-colors duration-600`}>
         <ThemeProvider>
           <ScrollProgress />
-          <Preloader />
           <CustomCursor />
           <CursorFollower />
           <MagneticButtonManager />
