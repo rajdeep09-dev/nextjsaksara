@@ -1,0 +1,26 @@
+'use client';
+
+export default function PageTransition({ children }) {
+  return (
+    <div
+      className="page-transition"
+      style={{
+        animation: 'pageEnter 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+      }}
+    >
+      {children}
+      <style jsx>{`
+        @keyframes pageEnter {
+          from {
+            opacity: 0;
+            transform: translateY(15px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
+    </div>
+  );
+}

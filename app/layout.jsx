@@ -1,5 +1,6 @@
 import { Inter, Syne } from "next/font/google";
 import "./globals.css";
+import ThemeProvider from "@/components/ThemeProvider";
 import GlassNavbar from "@/components/GlassNavbar";
 import Footer from "@/components/Footer";
 import Preloader from "@/components/Preloader";
@@ -30,20 +31,22 @@ export default function RootLayout({ children }) {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
-      <body className={`${inter.variable} ${syne.variable} bg-[#05000A] text-white min-h-screen relative font-inter overflow-x-hidden selection:bg-[#5E17EB] selection:text-white`}>
-        <ScrollProgress />
-        <Preloader />
-        <CustomCursor />
-        <CursorFollower />
-        <MagneticButtonManager />
-        <div className="fixed inset-0 z-[-1] pointer-events-none overflow-hidden">
-          <div className="absolute top-[-10%] left-[-10%] w-[40vw] h-[40vw] rounded-full bg-[#5E17EB] opacity-[0.15] blur-[120px] mix-blend-screen animate-blob"></div>
-          <div className="absolute top-[20%] right-[-10%] w-[35vw] h-[35vw] rounded-full bg-[#FF007F] opacity-[0.12] blur-[100px] mix-blend-screen animate-blob animation-delay-2000"></div>
-          <div className="absolute bottom-[-10%] left-[20%] w-[45vw] h-[45vw] rounded-full bg-[#5E17EB] opacity-[0.1] blur-[150px] mix-blend-screen animate-blob animation-delay-4000"></div>
-        </div>
-        <GlassNavbar />
-        <main className="relative z-10 w-full">{children}</main>
-        <Footer />
+      <body className={`${inter.variable} ${syne.variable} bg-[var(--bg-base)] text-[var(--text-primary)] min-h-screen relative font-inter overflow-x-hidden selection:bg-[var(--selection-bg)] selection:text-[var(--text-primary)] transition-colors duration-600`}>
+        <ThemeProvider>
+          <ScrollProgress />
+          <Preloader />
+          <CustomCursor />
+          <CursorFollower />
+          <MagneticButtonManager />
+          <div className="fixed inset-0 z-[-1] pointer-events-none overflow-hidden">
+            <div className="absolute top-[-10%] left-[-10%] w-[40vw] h-[40vw] rounded-full bg-[var(--gradient-blob-1)] opacity-[0.15] blur-[120px] mix-blend-screen animate-blob"></div>
+            <div className="absolute top-[20%] right-[-10%] w-[35vw] h-[35vw] rounded-full bg-[var(--gradient-blob-2)] opacity-[0.12] blur-[100px] mix-blend-screen animate-blob animation-delay-2000"></div>
+            <div className="absolute bottom-[-10%] left-[20%] w-[45vw] h-[45vw] rounded-full bg-[var(--gradient-blob-3)] opacity-[0.1] blur-[150px] mix-blend-screen animate-blob animation-delay-4000"></div>
+          </div>
+          <GlassNavbar />
+          <main className="relative z-10 w-full">{children}</main>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -615,19 +615,65 @@ a:hover, a:focus {
 
 /* Selection and scrollbar styles */
 ::selection {
-  background: rgba(94, 23, 235, 0.5);
-  color: white;
+  background: var(--selection-bg);
+  color: var(--text-primary);
 }
 ::-webkit-scrollbar {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #05000A;
+  background: var(--bg-base);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(94, 23, 235, 0.5);
+  background: var(--scrollbar-thumb);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(94, 23, 235, 0.8);
+}
+
+/* Preloader Grid Exit Animation */
+@keyframes gridExit {
+  from {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* Flash animation for preloader tagline */
+@keyframes flash {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Page Enter animation */
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Pulse animation for glowing dots */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }

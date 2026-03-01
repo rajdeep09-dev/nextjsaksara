@@ -2,9 +2,12 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import MobileMenu from './MobileMenu';
+import ThemeToggle from './ThemeToggle';
 
 export default function GlassNavbar() {
+  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -48,11 +51,11 @@ export default function GlassNavbar() {
   }, []);
 
   const navLinks = [
-    { name: 'Home', id: 'hero' },
-    { name: 'About', id: 'about' },
-    { name: 'Services', id: 'services' },
-    { name: 'Work', id: 'work' },
-    { name: 'Contact', id: 'contact' },
+    { name: 'Home', href: '/', id: 'home' },
+    { name: 'Services', href: '/services', id: 'services' },
+    { name: 'Work', href: '/work', id: 'work' },
+    { name: 'About', href: '/about', id: 'about' },
+    { name: 'Contact', href: '/contact', id: 'contact' },
   ];
 
   const handleSmoothScroll = (e, id) => {
@@ -117,52 +120,57 @@ export default function GlassNavbar() {
 
         {/* Desktop Links */}
         <div className="hidden md:flex gap-[4px]">
-          {navLinks.map((link) => (
-            <a
+          {navLinks.map((link) => {
+            const isActive = pathname === link.href;
+            return (
+            <Link
               key={link.id}
-              href={`#${link.id}`}
-              onClick={(e) => handleSmoothScroll(e, link.id)}
+              href={link.href}
               className="interactive"
               style={{
                 padding: '8px 16px',
                 borderRadius: '100px',
-                color: activeSection === link.id ? '#FFFFFF' : 'rgba(255,255,255,0.5)',
+                color: isActive ? 'var(--text-primary)' : 'var(--text-muted)',
                 fontFamily: 'var(--font-inter)',
                 fontWeight: 400,
                 fontSize: '0.85rem',
                 transition: 'all 0.3s ease',
-                cursor: 'pointer',
-                background: activeSection === link.id 
-                  ? 'linear-gradient(135deg, rgba(94,23,235,0.15) 0%, rgba(94,23,235,0.05) 100%)'
+                background: isActive 
+                  ? 'rgba(94,23,235,0.1)'
                   : 'transparent',
-                border: activeSection === link.id ? '1px solid rgba(94,23,235,0.2)' : '1px solid transparent',
-                boxShadow: activeSection === link.id ? '0 0 12px rgba(94,23,235,0.1), inset 0 1px 0 rgba(94,23,235,0.15)' : 'none',
+                border: isActive ? '1px solid rgba(94,23,235,0.15)' : '1px solid transparent',
               }}
               onMouseEnter={(e) => {
-                if (activeSection !== link.id) {
-                  e.currentTarget.style.color = '#FFFFFF';
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.06)';
+                if (!isActive) {
+                  e.currentTarget.style.color = 'var(--text-primary)';
+                  e.currentTarget.style.background = 'var(--glass-bg)';
                 }
               }}
               onMouseLeave={(e) => {
-                if (activeSection !== link.id) {
-                  e.currentTarget.style.color = 'rgba(255,255,255,0.5)';
+                if (!isActive) {
+                  e.currentTarget.style.color = 'var(--text-muted)';
                   e.currentTarget.style.background = 'transparent';
                 }
               }}
             >
               {link.name}
-            </a>
+            </Link>
+            );
+          })}
           ))}
         </div>
 
+        {/* Theme Toggle */}
+        <div className="hidden md:block">
+          <ThemeToggle />
+        </div>
+
         {/* Desktop CTA */}
-        <a
-          href="#contact"
-          onClick={(e) => handleSmoothScroll(e, 'contact')}
+        <Link
+          href="/contact"
           className="hidden md:block interactive magnetic-button"
           style={{
-            background: 'linear-gradient(135deg, #5E17EB, #7B2FFF)',
+            background: 'linear-gradient(135deg, var(--accent), #7B2FFF)',
             color: 'white',
             padding: '8px 20px',
             borderRadius: '100px',
@@ -186,8 +194,8 @@ export default function GlassNavbar() {
             e.currentTarget.style.filter = 'brightness(1)';
           }}
         >
-          Let's Talk
-        </a>
+          Get Started
+        </Link>
 
         {/* Mobile Hamburger */}
         <button
