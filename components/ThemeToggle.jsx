@@ -1,9 +1,21 @@
 'use client';
 
-import { useTheme } from './ThemeProvider';
+import { useContext, useEffect, useState } from 'react';
+import { ThemeContext } from './ThemeProvider';
 
 export default function ThemeToggle() {
-  const { theme, toggleTheme } = useTheme();
+  const context = useContext(ThemeContext);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted || !context) {
+    return null; // Don't render during SSR
+  }
+
+  const { theme, toggleTheme } = context;
 
   return (
     <button
