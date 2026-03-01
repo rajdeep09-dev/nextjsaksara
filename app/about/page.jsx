@@ -1,30 +1,45 @@
-import React from 'react';
-import AboutSection from '@/components/AboutSection';
+import PageTransition from '@/components/PageTransition';
+import SectionHeading from '@/components/SectionHeading';
 import CTASection from '@/components/CTASection';
-import AnimateOnScroll from '@/components/AnimateOnScroll';
 
 export const metadata = {
-  title: 'About Us — Akarsa',
-  description: 'Learn more about Akarsa Studio',
+  title: 'About | AKARSA - Digital Agency',
+  description: 'Learn about AKARSA, our team, mission, and the values that drive our work.',
 };
 
 export default function AboutPage() {
   return (
-    <>
-      <div style={{ paddingTop: '160px', paddingBottom: '80px', textAlign: 'center' }}>
-        <h1 style={{ fontFamily: 'var(--font-syne)', fontSize: 'clamp(3rem, 8vw, 6.5rem)', fontWeight: '800', color: 'white' }}>
-          About Us
-        </h1>
-        <p style={{ fontFamily: 'var(--font-inter)', color: 'rgba(255,255,255,0.55)', maxWidth: '600px', margin: '20px auto 0' }}>
-          We don&apos;t just create designs—we build experiences. Akarsa helps businesses transform ideas into powerful digital identities that stand out in today&apos;s competitive world.
-        </p>
-      </div>
-      <AnimateOnScroll animation="fade-up">
-        <AboutSection />
-      </AnimateOnScroll>
-      <AnimateOnScroll animation="fade-up">
-        <CTASection />
-      </AnimateOnScroll>
-    </>
+    <PageTransition>
+      <section className="pt-40 pb-20 px-[clamp(24px,6vw,100px)]">
+        <div className="max-w-6xl mx-auto">
+          <SectionHeading
+            subheading="About Us"
+            heading="We Design Digital Excellence"
+            gradientWord="Excellence"
+            description="AKARSA is a premium creative agency dedicated to delivering bold, innovative digital experiences that demand attention."
+          />
+
+          <div className="grid md:grid-cols-2 gap-16 mt-20">
+            <div>
+              <h3 className="text-xl font-bold font-syne mb-6 uppercase" style={{ color: 'var(--text-primary)' }}>
+                Our Mission
+              </h3>
+              <p className="text-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                We believe great design is more than aesthetics—it's about solving problems, telling stories, and creating meaningful connections between brands and their audiences.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold font-syne mb-6 uppercase" style={{ color: 'var(--text-primary)' }}>
+                Our Approach
+              </h3>
+              <p className="text-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                We combine strategic thinking with creative excellence and technical mastery. Every project is an opportunity to push boundaries and deliver something truly extraordinary.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <CTASection />
+    </PageTransition>
   );
 }

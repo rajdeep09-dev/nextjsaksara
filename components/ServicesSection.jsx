@@ -19,30 +19,30 @@ export default function ServicesSection() {
       title: "Digital Strategy",
       desc: "We dive deep into your brand, market, and audience. This isn't just about pretty pixels; it's about business transformation and outmaneuvering your competition.",
       tags: ["Brand Positioning", "Market Research", "Digital Transformation"],
-      img: "/public/G3.jpg"
+      img: "/G3.jpg"
     },
     {
       title: "Branding & Identity",
       desc: "We forge brutal, unapologetic brand identities. We craft visual languages that demand attention and speak directly to your audience's core desires.",
       tags: ["Logo Design", "Visual Language", "Brand Guidelines"],
-      img: "/public/G4.jpg"
+      img: "/G4.jpg"
     },
     {
       title: "Web Experience",
       desc: "Immersive, high-performance web experiences. We combine editorial typography with butter-smooth WebGL animations to create sites that feel alive.",
       tags: ["UI/UX Design", "Frontend Dev", "Creative Coding"],
-      img: "/public/G5.jpg"
+      img: "/G5.jpg"
     },
     {
       title: "Content Production",
       desc: "High-end 3D, motion graphics, and video production. We create thumb-stopping content that elevates your brand narrative across every touchpoint.",
       tags: ["Motion Graphics", "3D Animation", "Video Editing"],
-      img: "/public/G6.jpg"
+      img: "/G6.jpg"
     }
   ];
 
   return (
-    <div className="relative w-full pt-[120px] pb-[160px] overflow-hidden bg-[#05000A]">
+    <div className="glass-whisper rounded-[32px] mx-[clamp(16px,3vw,40px)] mt-[clamp(40px,8vw,80px)] pt-[clamp(48px,8vw,80px)] pb-[clamp(48px,8vw,80px)] relative overflow-hidden">
       
       {/* Background Watermark */}
       <div className="absolute top-[-20px] right-[-5%] font-syne text-[clamp(6rem,20vw,15rem)] font-extrabold text-transparent z-0 pointer-events-none whitespace-nowrap overflow-hidden select-none"
@@ -55,10 +55,17 @@ export default function ServicesSection() {
         {/* Header */}
         <div className="mb-12">
           <div className="flex items-center gap-3">
-            <div className="w-[40px] h-[1px] bg-[#5E17EB]" />
-            <span className="text-[#5E17EB] uppercase font-inter text-[0.8rem] font-medium tracking-[0.15em]">WHAT WE DO</span>
+            <div className="h-[1px] bg-[#5E17EB]" style={{
+              width: 0,
+              animation: 'accent-line-appear 0.6s cubic-bezier(0.76, 0, 0.24, 1) both'
+            }} />
+            <span className="text-[#5E17EB] uppercase font-inter text-[0.8rem] font-medium tracking-[0.15em]" style={{
+              animation: 'fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both'
+            }}>WHAT WE DO</span>
           </div>
-          <h2 className="heading-section mt-4 text-white">Services</h2>
+          <h2 className="heading-section mt-4 text-white" style={{
+            animation: 'fade-up 0.6s cubic-bezier(0.76, 0, 0.24, 1) 0.3s both'
+          }}>Services</h2>
         </div>
 
         {/* Services List */}
@@ -80,10 +87,19 @@ export default function ServicesSection() {
                   style={{ transform: isExpanded ? 'scaleX(1)' : 'scaleX(0)' }}
                 />
 
-                {/* Background overlay on active */}
+                {/* Background overlay on active — glass effect */}
                 <div 
-                  className="absolute inset-0 bg-white/[0.02] transition-opacity duration-400 pointer-events-none"
-                  style={{ opacity: isExpanded ? 1 : 0 }}
+                  className="absolute inset-0 transition-all duration-400 pointer-events-none rounded-[20px] -m-[16px] md:-m-[24px]"
+                  style={{ 
+                    opacity: isExpanded ? 1 : 0,
+                    background: isExpanded 
+                      ? 'linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%)'
+                      : 'transparent',
+                    backdropFilter: isExpanded ? 'blur(16px)' : 'blur(0px)',
+                    WebkitBackdropFilter: isExpanded ? 'blur(16px)' : 'blur(0px)',
+                    border: isExpanded ? '1px solid rgba(255,255,255,0.06)' : 'none',
+                    boxShadow: isExpanded ? '0 8px 32px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.04)' : 'none'
+                  }}
                 />
 
                 {/* Collapsed State (Always visible) */}
@@ -130,7 +146,7 @@ export default function ServicesSection() {
                       </p>
                       <div className="flex flex-wrap gap-2 mt-6">
                         {service.tags.map((tag, idx) => (
-                          <span key={idx} className="bg-[#5E17EB]/10 border border-[#5E17EB]/20 rounded-full px-[16px] py-[6px] font-inter text-[0.75rem] text-[#5E17EB]">
+                          <span key={idx} className="glass-accent px-[16px] py-[6px] rounded-full border border-[#5E17EB]/20 font-inter text-[0.75rem] text-[#5E17EB] backdrop-blur-sm transition-all duration-300 hover:glass-medium">
                             {tag}
                           </span>
                         ))}
@@ -139,19 +155,23 @@ export default function ServicesSection() {
 
                     {/* Right: Image */}
                     <div className="order-1 md:order-2">
-                      <div className="relative w-full aspect-[16/10] rounded-[16px] border border-white/[0.06] overflow-hidden"
+                      <div className="glass-medium p-[6px] rounded-[16px] overflow-hidden relative"
                            style={{
                              clipPath: isExpanded ? 'inset(0 0 0 0)' : 'inset(0 100% 0 0)',
-                             transition: 'clip-path 0.6s cubic-bezier(0.76, 0, 0.24, 1) 0.2s'
+                             transition: 'clip-path 0.6s cubic-bezier(0.76, 0, 0.24, 1) 0.2s',
+                             width: '100%',
+                             aspectRatio: '16/10'
                            }}>
-                        <Image 
-                          src={service.img} 
-                          alt={service.title}
-                          fill
-                          className="object-cover"
-                          sizes="(max-width: 768px) 100vw, 50vw"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#05000A]/80 to-transparent" />
+                        <div className="relative w-full h-full rounded-[12px] overflow-hidden">
+                          <Image 
+                            src={service.img} 
+                            alt={service.title}
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 768px) 100vw, 50vw"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-[#05000A]/80 to-transparent" />
+                        </div>
                       </div>
                     </div>
 

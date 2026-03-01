@@ -31,10 +31,17 @@ export default function ProcessSection() {
       
       <div className="mb-16">
         <div className="flex items-center gap-3">
-          <div className="w-[40px] h-[1px] bg-[#5E17EB]" />
-          <span className="text-[#5E17EB] uppercase font-inter text-[0.8rem] font-medium tracking-[0.15em]">HOW WE WORK</span>
+          <div className="h-[1px] bg-[#5E17EB]" style={{
+            width: 0,
+            animation: 'accent-line-appear 0.6s cubic-bezier(0.76, 0, 0.24, 1) both'
+          }} />
+          <span className="text-[#5E17EB] uppercase font-inter text-[0.8rem] font-medium tracking-[0.15em]" style={{
+            animation: 'fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both'
+          }}>HOW WE WORK</span>
         </div>
-        <h2 className="heading-section mt-4">Our Process</h2>
+        <h2 className="heading-section mt-4" style={{
+          animation: 'fade-up 0.6s cubic-bezier(0.76, 0, 0.24, 1) 0.3s both'
+        }}>Our Process</h2>
       </div>
 
       <div className="relative mt-24">

@@ -34,19 +34,27 @@ export default function HeroSection() {
         <div className="flex flex-col justify-start items-start text-left max-w-[700px] h-full z-20">
           
           <div className="flex items-center mb-8 animate-[fade-up_0.5s_cubic-bezier(0.16,1,0.3,1)_0.4s_both]">
-            <span className="inline-block w-[40px] h-[1px] bg-[#5E17EB] mr-3" />
-            <div className="px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md">
-              <span className="text-[0.75rem] font-inter uppercase tracking-widest text-white/80">Premium Digital Agency</span>
+            <span className="inline-block h-[1px] bg-[#5E17EB] mr-3" style={{
+              width: 0,
+              animation: 'accent-line-appear 0.6s cubic-bezier(0.76, 0, 0.24, 1) 0.4s both'
+            }} />
+            <div className="glass-medium px-4 py-2 rounded-full flex items-center gap-2">
+              <span className="inline-block w-[6px] h-[6px] rounded-full bg-[#5E17EB]" style={{
+                boxShadow: '0 0 6px #5E17EB, 0 0 12px rgba(94,23,235,0.4)',
+                animation: 'pulse 2s ease-in-out infinite'
+              }} />
+              <span className="text-[0.75rem] font-inter uppercase tracking-widest text-white/90">Premium Digital Agency</span>
             </div>
           </div>
 
-          <h1 className="heading-massive flex flex-col items-start w-full relative">
+          <h1 className="heading-massive flex flex-col items-start w-full relative" style={{ perspective: '1200px' }}>
             <div className="flex gap-4 overflow-hidden">
               {headlineWords1.map((word, i) => (
                 <span key={i} className="inline-block text-white"
                   style={{
-                    animation: `fade-up 0.8s cubic-bezier(0.76, 0, 0.24, 1) ${0.6 + (i * 0.1)}s both`,
-                    transformOrigin: 'left bottom'
+                    animation: `word-reveal-with-3d 0.8s cubic-bezier(0.76, 0, 0.24, 1) ${0.6 + (i * 0.1)}s both`,
+                    transformOrigin: 'left bottom',
+                    transformStyle: 'preserve-3d'
                   }}>
                   {word}
                 </span>
@@ -56,8 +64,9 @@ export default function HeroSection() {
               {headlineWords2.map((word, i) => (
                 <span key={i} className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-[#5E17EB] to-[#FF007F]"
                   style={{
-                    animation: `fade-up 0.8s cubic-bezier(0.76, 0, 0.24, 1) ${0.8 + (i * 0.1)}s both`,
-                    transformOrigin: 'left bottom'
+                    animation: `word-reveal-with-3d 0.8s cubic-bezier(0.76, 0, 0.24, 1) ${0.8 + (i * 0.1)}s both`,
+                    transformOrigin: 'left bottom',
+                    transformStyle: 'preserve-3d'
                   }}>
                   {word}
                 </span>
@@ -68,8 +77,9 @@ export default function HeroSection() {
                 <span key={i} className="inline-block text-transparent"
                   style={{
                     WebkitTextStroke: '1.5px white',
-                    animation: `fade-up 0.8s cubic-bezier(0.76, 0, 0.24, 1) ${0.9 + (i * 0.1)}s both`,
-                    transformOrigin: 'left bottom'
+                    animation: `word-reveal-with-3d 0.8s cubic-bezier(0.76, 0, 0.24, 1) ${0.9 + (i * 0.1)}s both`,
+                    transformOrigin: 'left bottom',
+                    transformStyle: 'preserve-3d'
                   }}>
                   {word}
                 </span>
@@ -81,12 +91,12 @@ export default function HeroSection() {
             We build $100K digital experiences. Editorial typography, brutalist layouts, and magnetic interactions that make people stop scrolling.
           </p>
 
-          <div className="mt-12 flex items-center justify-start gap-6 animate-[fade-up_0.5s_ease_1.4s_both]">
-            <a href="#contact" className="px-8 py-4 rounded-full bg-gradient-to-r from-[#5E17EB] to-[#7B2FFF] text-white font-inter font-semibold text-[1rem] shadow-[0_4px_20px_rgba(94,23,235,0.4)] hover:shadow-[0_8px_30px_rgba(94,23,235,0.6)] hover:-translate-y-1 transition-all duration-300">
+          <div className="mt-12 flex items-center justify-start gap-6 animate-[fade-up_0.5s_ease_1.4s_both] flex-wrap">
+            <a href="#contact" className="magnetic-button btn-primary-glass">
               Start a Project
             </a>
-            <a href="#work" className="text-white font-inter font-medium text-[0.95rem] flex items-center gap-2 hover:gap-4 transition-all duration-300 group">
-              View Our Work <span className="text-[#5E17EB] group-hover:translate-x-1 transition-transform">→</span>
+            <a href="#work" className="btn-secondary-glass">
+              View Our Work
             </a>
           </div>
 
@@ -126,7 +136,7 @@ export default function HeroSection() {
               }
             `}} />
             <Image 
-              src="/public/G4.jpg" 
+              src="/G4.jpg" 
               alt="Hero Visual"
               fill
               priority

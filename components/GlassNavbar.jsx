@@ -2,9 +2,12 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import MobileMenu from './MobileMenu';
+import ThemeToggle from './ThemeToggle';
 
 export default function GlassNavbar() {
+  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -48,11 +51,11 @@ export default function GlassNavbar() {
   }, []);
 
   const navLinks = [
-    { name: 'Home', id: 'hero' },
-    { name: 'About', id: 'about' },
-    { name: 'Services', id: 'services' },
-    { name: 'Work', id: 'work' },
-    { name: 'Contact', id: 'contact' },
+    { name: 'Home', href: '/', id: 'home' },
+    { name: 'Services', href: '/services', id: 'services' },
+    { name: 'Work', href: '/work', id: 'work' },
+    { name: 'About', href: '/about', id: 'about' },
+    { name: 'Contact', href: '/contact', id: 'contact' },
   ];
 
   const handleSmoothScroll = (e, id) => {
@@ -72,24 +75,28 @@ export default function GlassNavbar() {
           position: 'fixed',
           top: '24px',
           left: '50%',
-          transform: `translateX(-50%) translateY(${isHidden ? '-100px' : '0'}) scale(${isScrolled ? 0.98 : 1})`,
+          transform: `translateX(-50%) translateY(${isHidden ? '-100px' : '0'})`,
           width: 'auto',
           maxWidth: '90vw',
-          background: isScrolled ? 'rgba(5, 0, 10, 0.8)' : 'rgba(5, 0, 10, 0.6)',
-          backdropFilter: isScrolled ? 'blur(30px)' : 'blur(24px)',
-          WebkitBackdropFilter: isScrolled ? 'blur(30px)' : 'blur(24px)',
-          border: isScrolled ? '1px solid rgba(255,255,255,0.12)' : '1px solid rgba(255,255,255,0.08)',
+          background: isScrolled 
+            ? 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.04) 100%)'
+            : 'linear-gradient(135deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.02) 100%)',
+          backdropFilter: isScrolled ? 'blur(40px) saturate(1.3)' : 'blur(32px) saturate(1.2)',
+          WebkitBackdropFilter: isScrolled ? 'blur(40px) saturate(1.3)' : 'blur(32px) saturate(1.2)',
+          border: isScrolled ? '1px solid rgba(255,255,255,0.14)' : '1px solid rgba(255,255,255,0.1)',
           borderRadius: '100px',
-          padding: '12px 16px 12px 24px',
+          padding: '10px 12px 10px 24px',
           display: 'flex',
           alignItems: 'center',
           gap: '8px',
-          boxShadow: isScrolled ? '0 12px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05) inset' : '0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.03) inset',
+          boxShadow: isScrolled 
+            ? '0 8px 24px rgba(0,0,0,0.15), 0 16px 48px rgba(0,0,0,0.2), 0 32px 80px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.12)'
+            : '0 4px 12px rgba(0,0,0,0.1), 0 8px 24px rgba(0,0,0,0.15), 0 16px 48px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -0.5px 0 rgba(255,255,255,0.03)',
           zIndex: 1000,
           transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
           animation: 'fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both'
         }}
-        className="nav-container"
+        className="nav-container glass-strong relative"
       >
         <a
           href="#hero"
@@ -113,48 +120,56 @@ export default function GlassNavbar() {
 
         {/* Desktop Links */}
         <div className="hidden md:flex gap-[4px]">
-          {navLinks.map((link) => (
-            <a
+          {navLinks.map((link) => {
+            const isActive = pathname === link.href;
+            return (
+            <Link
               key={link.id}
-              href={`#${link.id}`}
-              onClick={(e) => handleSmoothScroll(e, link.id)}
+              href={link.href}
               className="interactive"
               style={{
                 padding: '8px 16px',
                 borderRadius: '100px',
-                color: activeSection === link.id ? '#FFFFFF' : 'rgba(255,255,255,0.5)',
+                color: isActive ? 'var(--text-primary)' : 'var(--text-muted)',
                 fontFamily: 'var(--font-inter)',
                 fontWeight: 400,
                 fontSize: '0.85rem',
                 transition: 'all 0.3s ease',
-                cursor: 'pointer',
-                background: activeSection === link.id ? 'rgba(94,23,235,0.15)' : 'transparent',
+                background: isActive 
+                  ? 'rgba(94,23,235,0.1)'
+                  : 'transparent',
+                border: isActive ? '1px solid rgba(94,23,235,0.15)' : '1px solid transparent',
               }}
               onMouseEnter={(e) => {
-                if (activeSection !== link.id) {
-                  e.currentTarget.style.color = '#FFFFFF';
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.06)';
+                if (!isActive) {
+                  e.currentTarget.style.color = 'var(--text-primary)';
+                  e.currentTarget.style.background = 'var(--glass-bg)';
                 }
               }}
               onMouseLeave={(e) => {
-                if (activeSection !== link.id) {
-                  e.currentTarget.style.color = 'rgba(255,255,255,0.5)';
+                if (!isActive) {
+                  e.currentTarget.style.color = 'var(--text-muted)';
                   e.currentTarget.style.background = 'transparent';
                 }
               }}
             >
               {link.name}
-            </a>
-          ))}
+            </Link>
+            );
+          })}
+        </div>
+
+        {/* Theme Toggle */}
+        <div className="hidden md:block">
+          <ThemeToggle />
         </div>
 
         {/* Desktop CTA */}
-        <a
-          href="#contact"
-          onClick={(e) => handleSmoothScroll(e, 'contact')}
-          className="hidden md:block interactive"
+        <Link
+          href="/contact"
+          className="hidden md:block interactive magnetic-button"
           style={{
-            background: 'linear-gradient(135deg, #5E17EB, #7B2FFF)',
+            background: 'linear-gradient(135deg, var(--accent), #7B2FFF)',
             color: 'white',
             padding: '8px 20px',
             borderRadius: '100px',
@@ -178,8 +193,8 @@ export default function GlassNavbar() {
             e.currentTarget.style.filter = 'brightness(1)';
           }}
         >
-          Let's Talk
-        </a>
+          Get Started
+        </Link>
 
         {/* Mobile Hamburger */}
         <button

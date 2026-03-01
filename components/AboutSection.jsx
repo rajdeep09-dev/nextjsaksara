@@ -55,7 +55,7 @@ export default function AboutSection() {
   }, []);
 
   return (
-    <div className="relative max-w-[1400px] mx-auto px-[clamp(24px,5vw,80px)] py-[clamp(80px,12vw,160px)]" ref={ref}>
+    <div className="glass-whisper rounded-[32px] mx-[clamp(16px,3vw,40px)] px-[clamp(48px,8vw,80px)] py-[clamp(48px,8vw,80px)] relative" ref={ref}>
       
       {/* Top Area */}
       <div className="grid grid-cols-1 md:grid-cols-[1fr_1.2fr] gap-[80px] items-end">
@@ -63,8 +63,13 @@ export default function AboutSection() {
         {/* Left Column */}
         <div className="flex flex-col">
           <div className="flex items-center gap-3 mb-8">
-            <div className="w-[40px] h-[1px] bg-[#5E17EB]" />
-            <span className="text-[#5E17EB] uppercase font-inter text-[0.8rem] font-medium tracking-[0.15em]">ABOUT US</span>
+            <div className="h-[1px] bg-[#5E17EB]" style={{
+              width: 0,
+              animation: 'accent-line-appear 0.6s cubic-bezier(0.76, 0, 0.24, 1) both'
+            }} />
+            <span className="text-[#5E17EB] uppercase font-inter text-[0.8rem] font-medium tracking-[0.15em]" style={{
+              animation: 'fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both'
+            }}>ABOUT US</span>
           </div>
 
           <h2 className="font-syne text-[clamp(2.5rem,6vw,4.5rem)] font-extrabold text-white leading-[1.05] tracking-[-0.02em]">
@@ -97,26 +102,45 @@ export default function AboutSection() {
 
         {/* Right Column */}
         <div className="relative">
-          <div className="w-full aspect-[4/5] rounded-[24px] border border-white/[0.06] overflow-hidden relative"
+          <div className="glass-soft p-[8px] rounded-[24px] overflow-hidden relative"
                style={{
                  clipPath: isVisible ? 'inset(0 0 0 0)' : 'inset(100% 0 0 0)',
                  transition: 'clip-path 1s cubic-bezier(0.76, 0, 0.24, 1) 0.4s'
                }}>
-            <Image 
-              src="/public/G7.jpg"
-              alt="About Akarsa"
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
+            <div className="w-full aspect-[4/5] rounded-[18px] overflow-hidden relative">
+              <div 
+                className="absolute inset-0 z-10 pointer-events-none"
+                style={{
+                  background: 'linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.03) 45%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.03) 55%, transparent 60%)',
+                  transform: 'rotate(0deg)',
+                  animation: 'glass-shimmer 8s ease-in-out infinite',
+                  top: '-50%',
+                  left: '-50%',
+                  width: '200%',
+                  height: '200%',
+                }}
+              />
+              <Image 
+                src="/G7.jpg"
+                alt="About Akarsa"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            </div>
           </div>
 
           {/* Floating Glass Card */}
-          <div className="absolute bottom-[-30px] left-[16px] md:left-[-40px] bg-[#05000A]/70 backdrop-blur-[20px] border border-white/[0.08] rounded-[20px] p-[24px_28px] shadow-[0_20px_40px_rgba(0,0,0,0.3)] z-10"
+          <div className="glass-strong absolute bottom-[-20px] left-[16px] md:left-[-40px] rounded-[20px] p-[24px_32px] z-10"
                style={{
                  opacity: isVisible ? 1 : 0,
                  transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
-                 transition: 'opacity 0.6s ease 1s, transform 0.6s ease 1s'
+                 transition: 'opacity 0.6s ease 1s, transform 0.6s ease 1s',
+                 background: 'linear-gradient(135deg, rgba(94,23,235,0.08) 0%, rgba(94,23,235,0.04) 100%)',
+                 backdropFilter: 'blur(32px) saturate(1.2)',
+                 WebkitBackdropFilter: 'blur(32px) saturate(1.2)',
+                 border: '1px solid rgba(94,23,235,0.15)',
+                 boxShadow: '0 8px 32px rgba(94,23,235,0.1), inset 0 1px 0 rgba(94,23,235,0.15), 0 0 0 1px rgba(94,23,235,0.05) inset'
                }}>
             <div className="font-syne text-[2.5rem] font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#5E17EB] to-[#FF007F] leading-none">
               <CountUpNumber end={50} isVisible={isVisible} />+
@@ -130,10 +154,10 @@ export default function AboutSection() {
       </div>
 
       {/* Bottom Stats Bar */}
-      <div className="mt-[80px] grid grid-cols-2 md:grid-cols-4 gap-0 border-t md:border-t-0 border-white/[0.06]">
+      <div className="mt-[80px] grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-0">
         {stats.map((stat, i) => (
           <div key={i} 
-               className="p-[40px_32px] border-b md:border-b-0 md:border-l border-white/[0.06] flex flex-col items-center md:items-start group hover:bg-white/[0.02] transition-colors duration-300 first:border-l-0"
+               className="glass-soft rounded-[16px] p-[28px_24px] flex flex-col items-center md:items-start group hover:glass-medium transition-all duration-300"
                style={{
                  opacity: isVisible ? 1 : 0,
                  transform: isVisible ? 'translateY(0)' : 'translateY(30px)',

@@ -1,27 +1,17 @@
-import React from 'react';
-import ServicesSection from '@/components/ServicesSection';
+import PageTransition from '@/components/PageTransition';
+import ServicesFull from '@/components/ServicesFull';
 import CTASection from '@/components/CTASection';
-import AnimateOnScroll from '@/components/AnimateOnScroll';
 
 export const metadata = {
-  title: 'Services — Akarsa',
-  description: 'Our comprehensive digital services.',
+  title: 'Services | AKARSA - Digital Agency',
+  description: 'Explore our 9 specialized digital services designed to bring your vision to life.',
 };
 
 export default function ServicesPage() {
   return (
-    <>
-      <div style={{ paddingTop: '160px', paddingBottom: '40px', textAlign: 'center' }}>
-        <h1 style={{ fontFamily: 'var(--font-syne)', fontSize: 'clamp(3rem, 8vw, 6.5rem)', fontWeight: '800', color: 'white' }}>
-          Our Services
-        </h1>
-      </div>
-      <AnimateOnScroll animation="fade-up">
-        <ServicesSection />
-      </AnimateOnScroll>
-      <AnimateOnScroll animation="fade-up">
-        <CTASection />
-      </AnimateOnScroll>
-    </>
+    <PageTransition>
+      <ServicesFull />
+      <CTASection />
+    </PageTransition>
   );
 }

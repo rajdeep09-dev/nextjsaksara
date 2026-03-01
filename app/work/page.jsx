@@ -1,30 +1,26 @@
-import React from 'react';
-import PortfolioSection from '@/components/PortfolioSection';
+import PageTransition from '@/components/PageTransition';
+import SectionHeading from '@/components/SectionHeading';
 import CTASection from '@/components/CTASection';
-import AnimateOnScroll from '@/components/AnimateOnScroll';
 
 export const metadata = {
-  title: 'Portfolio — Akarsa',
-  description: 'A showcase of work that blends innovation with functionality.',
+  title: 'Work | AKARSA - Digital Agency',
+  description: 'Explore our portfolio of award-winning digital projects that blend innovation with functionality.',
 };
 
 export default function WorkPage() {
   return (
-    <>
-      <div style={{ paddingTop: '160px', paddingBottom: '40px', textAlign: 'center' }}>
-        <h1 style={{ fontFamily: 'var(--font-syne)', fontSize: 'clamp(3rem, 8vw, 6.5rem)', fontWeight: '800', color: 'white' }}>
-          Portfolio
-        </h1>
-        <p style={{ fontFamily: 'var(--font-inter)', color: 'rgba(255,255,255,0.55)', maxWidth: '600px', margin: '20px auto 0' }}>
-          A showcase of work that blends innovation with functionality. See how we help brands grow through design and digital excellence.
-        </p>
-      </div>
-      <AnimateOnScroll animation="fade-up">
-        <PortfolioSection />
-      </AnimateOnScroll>
-      <AnimateOnScroll animation="fade-up">
-        <CTASection />
-      </AnimateOnScroll>
-    </>
+    <PageTransition>
+      <section className="pt-40 pb-20 px-[clamp(24px,6vw,100px)]">
+        <div className="max-w-6xl mx-auto">
+          <SectionHeading
+            subheading="Our Work"
+            heading="Projects That Speak for Themselves"
+            gradientWord="Speak"
+            description="A showcase of our best work across web, design, and digital experiences."
+          />
+        </div>
+      </section>
+      <CTASection />
+    </PageTransition>
   );
 }

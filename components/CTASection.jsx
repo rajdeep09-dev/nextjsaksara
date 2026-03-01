@@ -61,7 +61,7 @@ export default function CTASection() {
         </p>
 
         <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6">
-          <a href="#contact" className="magnetic-button px-10 py-5 rounded-full bg-gradient-to-r from-[#5E17EB] to-[#7B2FFF] text-white font-inter font-semibold text-[1.1rem] shadow-[0_4px_20px_rgba(94,23,235,0.4)] hover:shadow-[0_8px_30px_rgba(94,23,235,0.6)] hover:-translate-y-1 transition-all duration-300">
+          <a href="#contact" className="magnetic-button px-10 py-5 rounded-full bg-gradient-to-r from-[#5E17EB] to-[#7B2FFF] text-white font-inter font-semibold text-[1.1rem] shadow-[0_4px_20px_rgba(94,23,235,0.4)] hover:shadow-[0_8px_30px_rgba(94,23,235,0.6)] hover:-translate-y-1 transition-all duration-300 will-change-transform">
             Start a Project
           </a>
         </div>

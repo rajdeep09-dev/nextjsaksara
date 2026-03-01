@@ -5,21 +5,31 @@ import Image from 'next/image';
 
 export default function TeamSection() {
   const team = [
-    { name: 'Elena Rostova', role: 'Creative Director', img: '/public/G6.jpg' },
-    { name: 'Marcus Chen', role: 'Lead Engineer', img: '/public/G7.jpg' },
-    { name: 'Sarah Jenkins', role: 'Strategy Head', img: '/public/G8.jpg' },
-    { name: 'David Kim', role: 'Motion Designer', img: '/public/G5.jpg' }
+    { name: 'Elena Rostova', role: 'Creative Director', img: '/G6.jpg' },
+    { name: 'Marcus Chen', role: 'Lead Engineer', img: '/G7.jpg' },
+    { name: 'Sarah Jenkins', role: 'Strategy Head', img: '/G8.jpg' },
+    { name: 'David Kim', role: 'Motion Designer', img: '/G5.jpg' }
   ];
 
   return (
     <div className="w-full max-w-[1400px] mx-auto px-[clamp(24px,5vw,80px)] py-[clamp(80px,12vw,160px)]">
       <div className="flex flex-col items-center text-center mb-16">
         <div className="flex items-center gap-3">
-          <div className="w-[40px] h-[1px] bg-[#5E17EB]" />
-          <span className="text-[#5E17EB] uppercase font-inter text-[0.8rem] font-medium tracking-[0.15em]">THE TEAM</span>
-          <div className="w-[40px] h-[1px] bg-[#5E17EB]" />
+          <div className="h-[1px] bg-[#5E17EB]" style={{
+            width: 0,
+            animation: 'accent-line-appear 0.6s cubic-bezier(0.76, 0, 0.24, 1) both'
+          }} />
+          <span className="text-[#5E17EB] uppercase font-inter text-[0.8rem] font-medium tracking-[0.15em]" style={{
+            animation: 'fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both'
+          }}>THE TEAM</span>
+          <div className="h-[1px] bg-[#5E17EB]" style={{
+            width: 0,
+            animation: 'accent-line-appear 0.6s cubic-bezier(0.76, 0, 0.24, 1) 0.1s both'
+          }} />
         </div>
-        <h2 className="heading-section mt-4 max-w-[800px]">Meet the Minds Behind the Work</h2>
+        <h2 className="heading-section mt-4 max-w-[800px]" style={{
+          animation: 'fade-up 0.6s cubic-bezier(0.76, 0, 0.24, 1) 0.3s both'
+        }}>Meet the Minds Behind the Work</h2>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
