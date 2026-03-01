@@ -95,6 +95,95 @@ h1, h2, h3, h4, h5, h6 {
   100% { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes word-reveal-with-3d {
+  0% {
+    opacity: 0;
+    transform: translateX(-40px) rotateX(15deg) blur(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) rotateX(0) blur(0);
+  }
+}
+
+@keyframes clip-path-bottom-reveal {
+  0% {
+    clip-path: inset(0 0 100% 0);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes clip-path-left-reveal {
+  0% {
+    clip-path: inset(0 100% 0 0);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes scale-line-grow {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes parallax-scroll {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(var(--parallax-offset));
+  }
+}
+
+@keyframes accent-line-appear {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 40px;
+  }
+}
+
+/* Magnetic button effect styles */
+.magnetic-button {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.magnetic-button:hover {
+  will-change: transform;
+}
+
+/* Smooth scroll sections */
+section {
+  scroll-behavior: smooth;
+  scroll-margin-top: 100px;
+  contain: layout style;
+}
+
+/* Performance optimization for animated elements */
+.animate-blob {
+  will-change: transform;
+}
+
+/* Optimize interactive elements */
+.interactive, .magnetic-button, button, a {
+  will-change: auto;
+}
+
+.interactive:hover, .interactive:focus,
+.magnetic-button:hover, .magnetic-button:focus,
+button:hover, button:focus,
+a:hover, a:focus {
+  will-change: transform, box-shadow, color;
+}
+
 /* Reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

@@ -28,11 +28,21 @@ export default function FAQSection() {
     <div className="w-full max-w-[800px] mx-auto px-[clamp(24px,5vw,80px)] py-[clamp(80px,12vw,160px)]">
       <div className="flex flex-col items-center text-center mb-16">
         <div className="flex items-center gap-3">
-          <div className="w-[40px] h-[1px] bg-[#5E17EB]" />
-          <span className="text-[#5E17EB] uppercase font-inter text-[0.8rem] font-medium tracking-[0.15em]">FAQ</span>
-          <div className="w-[40px] h-[1px] bg-[#5E17EB]" />
+          <div className="h-[1px] bg-[#5E17EB]" style={{
+            width: 0,
+            animation: 'accent-line-appear 0.6s cubic-bezier(0.76, 0, 0.24, 1) both'
+          }} />
+          <span className="text-[#5E17EB] uppercase font-inter text-[0.8rem] font-medium tracking-[0.15em]" style={{
+            animation: 'fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both'
+          }}>FAQ</span>
+          <div className="h-[1px] bg-[#5E17EB]" style={{
+            width: 0,
+            animation: 'accent-line-appear 0.6s cubic-bezier(0.76, 0, 0.24, 1) 0.1s both'
+          }} />
         </div>
-        <h2 className="heading-section mt-4">Common Questions</h2>
+        <h2 className="heading-section mt-4" style={{
+          animation: 'fade-up 0.6s cubic-bezier(0.76, 0, 0.24, 1) 0.3s both'
+        }}>Common Questions</h2>
       </div>
 
       <div className="flex flex-col border-t border-white/5">

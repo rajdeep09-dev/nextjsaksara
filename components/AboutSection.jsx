@@ -63,8 +63,13 @@ export default function AboutSection() {
         {/* Left Column */}
         <div className="flex flex-col">
           <div className="flex items-center gap-3 mb-8">
-            <div className="w-[40px] h-[1px] bg-[#5E17EB]" />
-            <span className="text-[#5E17EB] uppercase font-inter text-[0.8rem] font-medium tracking-[0.15em]">ABOUT US</span>
+            <div className="h-[1px] bg-[#5E17EB]" style={{
+              width: 0,
+              animation: 'accent-line-appear 0.6s cubic-bezier(0.76, 0, 0.24, 1) both'
+            }} />
+            <span className="text-[#5E17EB] uppercase font-inter text-[0.8rem] font-medium tracking-[0.15em]" style={{
+              animation: 'fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both'
+            }}>ABOUT US</span>
           </div>
 
           <h2 className="font-syne text-[clamp(2.5rem,6vw,4.5rem)] font-extrabold text-white leading-[1.05] tracking-[-0.02em]">
@@ -103,7 +108,7 @@ export default function AboutSection() {
                  transition: 'clip-path 1s cubic-bezier(0.76, 0, 0.24, 1) 0.4s'
                }}>
             <Image 
-              src="/public/G7.jpg"
+              src="/G7.jpg"
               alt="About Akarsa"
               fill
               className="object-cover"

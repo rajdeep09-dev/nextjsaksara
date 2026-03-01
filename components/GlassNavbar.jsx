@@ -152,7 +152,7 @@ export default function GlassNavbar() {
         <a
           href="#contact"
           onClick={(e) => handleSmoothScroll(e, 'contact')}
-          className="hidden md:block interactive"
+          className="hidden md:block interactive magnetic-button"
           style={{
             background: 'linear-gradient(135deg, #5E17EB, #7B2FFF)',
             color: 'white',

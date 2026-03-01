@@ -10,9 +10,9 @@ export default function TestimonialsSection() {
   const [scrollLeft, setScrollLeft] = useState(0);
 
   const testimonials = [
-    { name: 'Sarah Connor', role: 'CEO at Cyberdyne', text: 'Akarsa completely transformed our digital presence. The attention to detail and brutalist design aesthetic perfectly aligned with our new product launch.', img: '/public/testimonials/starbucks.png' },
-    { name: 'John Doe', role: 'Founder, Startup X', text: 'Working with them felt like a true partnership. They pushed back on our bad ideas and delivered an experience that won us 3 industry awards.', img: '/public/testimonials/decathlon.png' },
-    { name: 'Alice Smith', role: 'CMO at GlobalBrand', text: 'The typography, the motion, the entire vibe—they nailed it. Our conversion rate increased by 40% within the first month of deploying the new site.', img: '/public/testimonials/adidas.png' },
+    { name: 'Sarah Connor', role: 'CEO at Cyberdyne', text: 'Akarsa completely transformed our digital presence. The attention to detail and brutalist design aesthetic perfectly aligned with our new product launch.', img: '/testimonials/starbucks.png' },
+    { name: 'John Doe', role: 'Founder, Startup X', text: 'Working with them felt like a true partnership. They pushed back on our bad ideas and delivered an experience that won us 3 industry awards.', img: '/testimonials/decathlon.png' },
+    { name: 'Alice Smith', role: 'CMO at GlobalBrand', text: 'The typography, the motion, the entire vibe—they nailed it. Our conversion rate increased by 40% within the first month of deploying the new site.', img: '/testimonials/adidas.png' },
     { name: 'Mike Johnson', role: 'Director of E-comm', text: 'I have worked with dozens of agencies. Akarsa is the only one that truly understands the balance between high-end aesthetics and actual business metrics.', img: null }
   ];
 
@@ -52,10 +52,17 @@ export default function TestimonialsSection() {
       {/* Header */}
       <div className="max-w-[1200px] mx-auto px-[clamp(24px,5vw,80px)] mb-12">
         <div className="flex items-center gap-3">
-          <div className="w-[40px] h-[1px] bg-[#5E17EB]" />
-          <span className="text-[#5E17EB] uppercase font-inter text-[0.8rem] font-medium tracking-[0.15em]">TESTIMONIALS</span>
+          <div className="h-[1px] bg-[#5E17EB]" style={{
+            width: 0,
+            animation: 'accent-line-appear 0.6s cubic-bezier(0.76, 0, 0.24, 1) both'
+          }} />
+          <span className="text-[#5E17EB] uppercase font-inter text-[0.8rem] font-medium tracking-[0.15em]" style={{
+            animation: 'fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both'
+          }}>TESTIMONIALS</span>
         </div>
-        <h2 className="heading-section mt-4 text-white">What Our Clients Say</h2>
+        <h2 className="heading-section mt-4 text-white" style={{
+          animation: 'fade-up 0.6s cubic-bezier(0.76, 0, 0.24, 1) 0.3s both'
+        }}>What Our Clients Say</h2>
       </div>
 
       {/* Scrolling Strip */}

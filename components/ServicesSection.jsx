@@ -19,25 +19,25 @@ export default function ServicesSection() {
       title: "Digital Strategy",
       desc: "We dive deep into your brand, market, and audience. This isn't just about pretty pixels; it's about business transformation and outmaneuvering your competition.",
       tags: ["Brand Positioning", "Market Research", "Digital Transformation"],
-      img: "/public/G3.jpg"
+      img: "/G3.jpg"
     },
     {
       title: "Branding & Identity",
       desc: "We forge brutal, unapologetic brand identities. We craft visual languages that demand attention and speak directly to your audience's core desires.",
       tags: ["Logo Design", "Visual Language", "Brand Guidelines"],
-      img: "/public/G4.jpg"
+      img: "/G4.jpg"
     },
     {
       title: "Web Experience",
       desc: "Immersive, high-performance web experiences. We combine editorial typography with butter-smooth WebGL animations to create sites that feel alive.",
       tags: ["UI/UX Design", "Frontend Dev", "Creative Coding"],
-      img: "/public/G5.jpg"
+      img: "/G5.jpg"
     },
     {
       title: "Content Production",
       desc: "High-end 3D, motion graphics, and video production. We create thumb-stopping content that elevates your brand narrative across every touchpoint.",
       tags: ["Motion Graphics", "3D Animation", "Video Editing"],
-      img: "/public/G6.jpg"
+      img: "/G6.jpg"
     }
   ];
 
@@ -55,10 +55,17 @@ export default function ServicesSection() {
         {/* Header */}
         <div className="mb-12">
           <div className="flex items-center gap-3">
-            <div className="w-[40px] h-[1px] bg-[#5E17EB]" />
-            <span className="text-[#5E17EB] uppercase font-inter text-[0.8rem] font-medium tracking-[0.15em]">WHAT WE DO</span>
+            <div className="h-[1px] bg-[#5E17EB]" style={{
+              width: 0,
+              animation: 'accent-line-appear 0.6s cubic-bezier(0.76, 0, 0.24, 1) both'
+            }} />
+            <span className="text-[#5E17EB] uppercase font-inter text-[0.8rem] font-medium tracking-[0.15em]" style={{
+              animation: 'fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both'
+            }}>WHAT WE DO</span>
           </div>
-          <h2 className="heading-section mt-4 text-white">Services</h2>
+          <h2 className="heading-section mt-4 text-white" style={{
+            animation: 'fade-up 0.6s cubic-bezier(0.76, 0, 0.24, 1) 0.3s both'
+          }}>Services</h2>
         </div>
 
         {/* Services List */}
