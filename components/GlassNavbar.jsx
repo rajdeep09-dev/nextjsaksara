@@ -157,7 +157,6 @@ export default function GlassNavbar() {
             </Link>
             );
           })}
-          ))}
         </div>
 
         {/* Theme Toggle */}
